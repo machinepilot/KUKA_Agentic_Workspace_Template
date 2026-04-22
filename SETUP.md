@@ -135,6 +135,7 @@ Open the `.code-workspace` file. Cursor will:
 
 - Add this workspace folder to Claude Desktop's project list.
 - Claude will read `CLAUDE.md` and `AGENTS.md` on session start.
+- A machine-specific runbook (Ollama, eval harness, Cursor/Claude MCP locations, Claude Project copy-paste text) is available in [COWORK_CLAUDE_DESKTOP.md](COWORK_CLAUDE_DESKTOP.md) when you maintain a filled-in copy in your repo or notes.
 
 ---
 

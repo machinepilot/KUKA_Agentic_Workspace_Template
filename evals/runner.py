@@ -27,7 +27,7 @@ import json
 import os
 import sys
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -209,7 +209,7 @@ def _run_case(case: Case, mode: str, update_golden: bool) -> dict:
 
 def _write_results(results: list[dict]) -> Path:
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
-    run_dir = RESULTS_DIR / datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+    run_dir = RESULTS_DIR / datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=True)
     (run_dir / "results.json").write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
     return run_dir
