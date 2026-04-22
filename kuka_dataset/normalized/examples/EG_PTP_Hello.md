@@ -11,10 +11,10 @@ source:
   tier: generated
   pages: null
   section: "template scaffold"
-  access_date: 2026-04-21
+  access_date: "2026-04-21"
   url: null
 license: open
-revision_date: 2026-04-21
+revision_date: "2026-04-21"
 related: [KUKA_REF_PTP_Motion, ONE_motion_termination]
 difficulty: beginner
 tags: [motion, ptp, example, beginner, template]

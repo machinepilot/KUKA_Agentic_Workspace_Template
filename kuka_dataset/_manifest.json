@@ -1,17 +1,835 @@
 {
   "$schema": "./_manifest.schema.json",
   "version": 1,
-  "generated_at": null,
+  "generated_at": "2026-04-22T05:51:38Z",
   "entries": [
+    {
+      "id": "ONE_interrupt_programming",
+      "path": "articles/ONE_interrupt_programming.md",
+      "topic": "interrupts",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "interrupts",
+        "brake",
+        "resume",
+        "priority",
+        "advance-run",
+        "e-stop"
+      ]
+    },
+    {
+      "id": "ONE_motion_blending",
+      "path": "articles/ONE_motion_blending.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "blending",
+        "continuous-path",
+        "cycle-time",
+        "smoothing"
+      ]
+    },
+    {
+      "id": "ONE_motion_termination",
+      "path": "articles/ONE_motion_termination.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "termination",
+        "blending",
+        "c_ptp",
+        "c_dis",
+        "c_ori",
+        "c_vel",
+        "c_fine"
+      ]
+    },
+    {
+      "id": "ONE_singularities",
+      "path": "articles/ONE_singularities.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "singularity",
+        "kinematics",
+        "wrist",
+        "overhead",
+        "extended"
+      ]
+    },
+    {
+      "id": "ONE_spline_orientation",
+      "path": "articles/ONE_spline_orientation.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "spline",
+        "scirc",
+        "orientation",
+        "interpolate",
+        "ignore",
+        "consider",
+        "extrapolate"
+      ]
+    },
+    {
+      "id": "ONE_spline_vs_ptp_lin",
+      "path": "articles/ONE_spline_vs_ptp_lin.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "spline",
+        "decision-guide",
+        "path-planning"
+      ]
+    },
+    {
+      "id": "ONE_status_turn",
+      "path": "articles/ONE_status_turn.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "status",
+        "turn",
+        "configuration",
+        "inverse-kinematics"
+      ]
+    },
+    {
+      "id": "ONE_structured_programming",
+      "path": "articles/ONE_structured_programming.md",
+      "topic": "structured_programming",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "structured_programming",
+        "folds",
+        "naming",
+        "program-organization"
+      ]
+    },
+    {
+      "id": "ONE_subprograms_and_functions",
+      "path": "articles/ONE_subprograms_and_functions.md",
+      "topic": "structured_programming",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "subprograms",
+        "functions",
+        "parameters",
+        "deffct",
+        "global",
+        "local"
+      ]
+    },
+    {
+      "id": "ONE_variables_and_datatypes",
+      "path": "articles/ONE_variables_and_datatypes.md",
+      "topic": "structured_programming",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "variables",
+        "data-types",
+        "pos",
+        "e6pos",
+        "frame",
+        "axis",
+        "int",
+        "real",
+        "bool",
+        "char",
+        "struct"
+      ]
+    },
+    {
+      "id": "EG_Collision_Detection_Setup",
+      "path": "examples/EG_Collision_Detection_Setup.md",
+      "topic": "safety",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "example",
+        "collision-detection",
+        "torque-monitoring",
+        "safety",
+        "tuning"
+      ]
+    },
+    {
+      "id": "EG_Interrupt_Safety_Shutdown",
+      "path": "examples/EG_Interrupt_Safety_Shutdown.md",
+      "topic": "interrupts",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "example",
+        "interrupt",
+        "brake",
+        "safety",
+        "shutdown",
+        "recovery"
+      ]
+    },
     {
       "id": "EG_PTP_Hello",
       "path": "examples/EG_PTP_Hello.md",
       "topic": "motion",
       "tier": "generated",
-      "kuka_platform": ["KR C4", "KR C5"],
-      "kss_version": ["KSS 8.3", "KSS 8.6"],
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
       "revision_date": "2026-04-21",
-      "tags": ["motion", "ptp", "example", "beginner"]
+      "kss_version": [
+        "KSS 8.3",
+        "KSS 8.6"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "ptp",
+        "example",
+        "beginner",
+        "template"
+      ]
+    },
+    {
+      "id": "EG_Palletizing_Skeleton",
+      "path": "examples/EG_Palletizing_Skeleton.md",
+      "topic": "palletizing",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "example",
+        "palletizing",
+        "structured_programming",
+        "pattern",
+        "pick-and-place"
+      ]
+    },
+    {
+      "id": "EG_SPLINE_Basic_Block",
+      "path": "examples/EG_SPLINE_Basic_Block.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "example",
+        "spline",
+        "slin",
+        "scirc",
+        "motion",
+        "cp-motion"
+      ]
+    },
+    {
+      "id": "EG_Tool_Base_Calibration_Flow",
+      "path": "examples/EG_Tool_Base_Calibration_Flow.md",
+      "topic": "mastering",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "tags": [
+        "example",
+        "calibration",
+        "tool",
+        "base",
+        "tcp",
+        "4-point",
+        "3-point",
+        "xyz-2-point",
+        "abc-2-point"
+      ]
+    },
+    {
+      "id": "KUKA_Fieldbus_KRC5_Interfaces",
+      "path": "protocols/KUKA_Fieldbus_KRC5_Interfaces.md",
+      "topic": "fieldbus",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "tags": [
+        "kr-c5",
+        "hardware",
+        "fieldbus",
+        "profinet",
+        "ethernet-ip",
+        "ethercat",
+        "cip-safety",
+        "profisafe",
+        "fsoe"
+      ]
+    },
+    {
+      "id": "KUKA_WorkVisual_Fieldbus_Setup",
+      "path": "protocols/KUKA_WorkVisual_Fieldbus_Setup.md",
+      "topic": "fieldbus",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.2",
+        "KSS 8.3",
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "tags": [
+        "fieldbus",
+        "workvisual",
+        "profinet",
+        "ethernet-ip",
+        "ethercat",
+        "configuration"
+      ]
+    },
+    {
+      "id": "KUKA_WorkVisual_IO_Mapping",
+      "path": "protocols/KUKA_WorkVisual_IO_Mapping.md",
+      "topic": "fieldbus",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.2",
+        "KSS 8.3",
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "fieldbus",
+        "workvisual",
+        "io-mapping",
+        "signal",
+        "$in",
+        "$out",
+        "process-data"
+      ]
+    },
+    {
+      "id": "KUKA_WorkVisual_Project_Deployment",
+      "path": "protocols/KUKA_WorkVisual_Project_Deployment.md",
+      "topic": "workvisual",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.2",
+        "KSS 8.3",
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "tags": [
+        "workvisual",
+        "deployment",
+        "project-transfer",
+        "activation",
+        "kss"
+      ]
+    },
+    {
+      "id": "KUKA_REF_CIRC_Motion",
+      "path": "reference/KUKA_REF_CIRC_Motion.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "circ",
+        "cartesian",
+        "cp-motion",
+        "circular-arc"
+      ]
+    },
+    {
+      "id": "KUKA_REF_INTERRUPT_DECL",
+      "path": "reference/KUKA_REF_INTERRUPT_DECL.md",
+      "topic": "interrupts",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "interrupts",
+        "interrupt-decl",
+        "brake",
+        "resume",
+        "handler"
+      ]
+    },
+    {
+      "id": "KUKA_REF_KL5000_Linear_Unit",
+      "path": "reference/KUKA_REF_KL5000_Linear_Unit.md",
+      "topic": "external_axis",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "tags": [
+        "external_axis",
+        "linear_unit",
+        "kl5000",
+        "floor-mounted",
+        "travel-rail"
+      ]
+    },
+    {
+      "id": "KUKA_REF_LIN_Motion",
+      "path": "reference/KUKA_REF_LIN_Motion.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "lin",
+        "cartesian",
+        "cp-motion",
+        "straight-line"
+      ]
+    },
+    {
+      "id": "KUKA_REF_PTP_Motion",
+      "path": "reference/KUKA_REF_PTP_Motion.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "ptp",
+        "asynchronous",
+        "axis-interpolated"
+      ]
+    },
+    {
+      "id": "KUKA_REF_SPLINE_Block",
+      "path": "reference/KUKA_REF_SPLINE_Block.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "spline",
+        "cp-motion",
+        "sptp",
+        "slin",
+        "scirc"
+      ]
+    },
+    {
+      "id": "KUKA_REF_Tool_Base_Frames",
+      "path": "reference/KUKA_REF_Tool_Base_Frames.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "frames",
+        "tool",
+        "base",
+        "ipo-mode",
+        "tcp"
+      ]
+    },
+    {
+      "id": "KUKA_REF_Velocity_Acceleration",
+      "path": "reference/KUKA_REF_Velocity_Acceleration.md",
+      "topic": "motion",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "language": "KRL",
+      "tags": [
+        "motion",
+        "velocity",
+        "acceleration",
+        "system-variables",
+        "override"
+      ]
+    },
+    {
+      "id": "KUKA_SAFETY_Brake_Test",
+      "path": "safety/KUKA_SAFETY_Brake_Test.md",
+      "topic": "safety",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.7"
+      ],
+      "tags": [
+        "safety",
+        "safeoperation",
+        "brake-test",
+        "periodic-test",
+        "holding-brakes",
+        "pl-d"
+      ]
+    },
+    {
+      "id": "KUKA_SAFETY_Mastering_Test",
+      "path": "safety/KUKA_SAFETY_Mastering_Test.md",
+      "topic": "mastering",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.7"
+      ],
+      "tags": [
+        "safety",
+        "safeoperation",
+        "mastering",
+        "srm",
+        "reference-switch",
+        "encoder",
+        "periodic-test"
+      ]
+    },
+    {
+      "id": "KUKA_SAFETY_Monitoring_Spaces",
+      "path": "safety/KUKA_SAFETY_Monitoring_Spaces.md",
+      "topic": "safety",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.7"
+      ],
+      "tags": [
+        "safety",
+        "safeoperation",
+        "zones",
+        "cartesian-zone",
+        "axis-zone",
+        "safe-tool",
+        "workspace"
+      ]
+    },
+    {
+      "id": "KUKA_SAFETY_Operating_Modes",
+      "path": "safety/KUKA_SAFETY_Operating_Modes.md",
+      "topic": "safety",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "tags": [
+        "safety",
+        "operating-modes",
+        "t1",
+        "t2",
+        "aut",
+        "aut-ext",
+        "enabling-switch",
+        "override"
+      ]
+    },
+    {
+      "id": "KUKA_SAFETY_SafeOp_Overview",
+      "path": "safety/KUKA_SAFETY_SafeOp_Overview.md",
+      "topic": "safety",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.7"
+      ],
+      "tags": [
+        "safety",
+        "safeoperation",
+        "srm",
+        "safety-zones",
+        "pl-d",
+        "cat-3"
+      ]
+    },
+    {
+      "id": "KUKA_SAFETY_Stop_Categories",
+      "path": "safety/KUKA_SAFETY_Stop_Categories.md",
+      "topic": "safety",
+      "tier": "T1",
+      "kuka_platform": [
+        "KR C4",
+        "KR C5"
+      ],
+      "revision_date": "2026-04-22",
+      "kss_version": [
+        "KSS 8.5",
+        "KSS 8.6",
+        "KSS 8.7"
+      ],
+      "tags": [
+        "safety",
+        "stop-categories",
+        "stop0",
+        "stop1",
+        "stop2",
+        "iso-10218",
+        "en-60204"
+      ]
     }
   ]
 }
