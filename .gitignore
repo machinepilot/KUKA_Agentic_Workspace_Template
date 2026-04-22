@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# MCP / RAG caches
+.cache/
+*.index
+*.faiss
+*.sqlite
+*.sqlite-journal
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# Secrets / local config
+.env
+.env.local
+*.local.json
+mcp.local.json
+
+# Eval outputs
+evals/results/
+evals/runs/
+
+# Ingestion scratch
+kuka_dataset/raw_sources/_scratch/
+kuka_dataset/_index_cache/
+
+# Task runtime state (keep templates, not live tasks)
+task_state.json
+!cowork/templates/task_state.template.json

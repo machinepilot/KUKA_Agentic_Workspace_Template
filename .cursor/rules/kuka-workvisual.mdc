@@ -1,0 +1,41 @@
+---
+description: KUKA WorkVisual project context — when working with WV project files
+globs: "**/*workvisual*,**/*.wvs,**/*.wvx,**/*.kop,**/WV_*/**,**/$config*.dat"
+alwaysApply: false
+---
+
+# KUKA WorkVisual
+
+WorkVisual is KUKA's primary engineering tool. It owns:
+
+- I/O configuration (Profinet / EtherNet-IP / EtherCAT topology, fieldbus mapping, safety I/O signals).
+- Machine data (`$machine.dat`) — mastering, payloads, calibration.
+- System configuration (`$config.dat`) — aliases, defaults.
+- Option package installation (SafeOperation, mxAutomation, RSI, ConveyorTech, etc.).
+- Long-text bundles for HMI.
+
+## What Lives Where
+
+| Artifact | Owner | Editable in Cursor? |
+|----------|-------|---------------------|
+| `$config.dat` — user aliases, shared decls | WorkVisual primary; source edit possible | Yes, with care; WV deploy overwrites |
+| `$machine.dat` — calibration, mastering | WorkVisual | No — WV only |
+| Robot programs (`.src`/`.dat`) | Teach pendant + WV + source control | Yes — primary Cursor surface |
+| I/O mapping | WorkVisual | No — WV only |
+| SafeOperation zone config | WorkVisual + SafeOperation Configurator | No |
+
+## Interaction Rules
+
+- Do not manually edit fieldbus topology; it is exported from WorkVisual.
+- When adding a new signal alias, edit `$config.dat` **and** mirror the change in the WorkVisual project (document in the handoff).
+- Source-control the WorkVisual project (`.wvs` / project folder). Commit both the WV project and the exported `$config.dat` when they change.
+
+## Exports to Read
+
+- `WVExport/` — if you export the WV project to inspect in source, place it here.
+- `kuka_dataset/normalized/articles/ONE_*_WorkVisual_*.md` for usage patterns (once populated).
+
+## References
+
+- `kuka_knowledge.search("WorkVisual signal alias")`
+- `kuka_knowledge.list_by_tag("workvisual")`

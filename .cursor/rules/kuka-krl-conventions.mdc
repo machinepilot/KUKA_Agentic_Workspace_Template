@@ -1,0 +1,56 @@
+---
+description: KRL programming conventions for KUKA KR C4 / KR C5
+globs: "**/*.src,**/*.dat,**/*.sub"
+alwaysApply: false
+---
+
+# KUKA KRL Conventions
+
+When editing `.src`, `.dat`, or `.sub` files, follow these conventions. They are enforced by the QA agent and the `safety_lint` MCP server.
+
+## Program Structure
+
+- Every main `DEF ... END` program starts with an `INI` block (macro from `$config.dat`) that initializes `$BASE`, `$TOOL`, `$VEL`, `$ACC`, and interrupts.
+- Subprograms are declared `GLOBAL DEF <name>(...)` in their own `.src` files; reusable data goes in `.dat` files.
+- `GLOBAL DEFDAT` files for shared, persistent variables; local `DEFDAT` for program-private data.
+- One concept per file; long programs get decomposed into subprograms.
+
+## Motion
+
+- Set `$TOOL`, `$BASE`, `$IPO_MODE` explicitly before the first motion command — never rely on inherited state.
+- Set `$VEL.CP` (Cartesian path velocity), `$VEL_AXIS[]` (axis velocity percentage), and `$ACC.CP` explicitly before motion blocks.
+- SPLINE blocks require `BAS(#INITMOV, 0)` (or equivalent) before use; otherwise path initialization is undefined.
+- Prefer PTP for point-to-point, LIN for linear, SPLINE for complex continuous paths. `CIRC` for arcs only.
+- Approach/retract offsets via `$TOOL` or explicit `FRAME` arithmetic — not hard-coded Cartesian literals in `LIN` commands.
+
+## Variables and I/O
+
+- Every `DECL` has a descriptive comment: `DECL INT gripper_state ; 0=open 1=closed 2=fault`.
+- Signal I/O accesses use named aliases from `$config.dat` (`SIGNAL gripper_cmd $OUT[12]`), never raw `$OUT[12]` in program text.
+- No hard-coded numeric literals where a named configuration constant applies.
+
+## Interrupts and Safety
+
+- `INTERRUPT DECL <prio> WHEN <cond> DO <handler>()` for safety-relevant events (E-stop, guard open, part present loss), declared **before first motion**.
+- Interrupt priorities follow house convention (see `kuka_dataset/normalized/safety/` once populated).
+- Error recovery logic in dedicated subprograms, not inline.
+
+## Comments and Documentation
+
+- File header: purpose, author, revision date, dependencies.
+- Section headers separate logical phases: `; === PICK ===`, `; === PLACE ===`.
+- Comment intent, not mechanics. Do not comment "increment counter"; comment why.
+
+## References
+
+When in doubt, consult via MCP:
+
+- `kuka_knowledge.search("<topic>")` — primary
+- `kuka_knowledge.get("<id>")` — specific entry
+- `safety_lint.lint_src("<path>")` — automated checks
+
+Relevant normalized entries (once ingested):
+- `kuka_dataset/normalized/reference/KUKA_REF_Motion_Instructions.md`
+- `kuka_dataset/normalized/reference/KUKA_REF_IO_Instructions.md`
+- `kuka_dataset/normalized/reference/KUKA_REF_Interrupt.md`
+- `kuka_dataset/normalized/articles/ONE_*_KRL_Program_Structure.md`

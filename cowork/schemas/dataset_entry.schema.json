@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/dataset_entry.schema.json",
+  "title": "DatasetEntry",
+  "description": "Frontmatter schema for every normalized entry under kuka_dataset/normalized/. Validates the YAML block at the top of each .md file.",
+  "type": "object",
+  "required": ["id", "title", "topic", "kuka_platform", "language", "source", "license", "revision_date"],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(KUKA_REF_|ONE_|EG_|KUKA_SAFETY_|KUKA_[A-Za-z]+_)[A-Za-z0-9_]+$",
+      "description": "Unique id. Prefixes: KUKA_REF_ (reference), ONE_ (article), EG_ (example), KUKA_SAFETY_ (safety), KUKA_<protocol>_ (protocol)."
+    },
+    "title": { "type": "string", "minLength": 3 },
+    "topic": {
+      "type": "string",
+      "description": "Primary topic. Suggested: motion | io | interrupts | safety | fieldbus | workvisual | mastering | palletizing | welding | diagnostics | structured_programming | errors | mx_automation | rsi | eki | sunrise_java"
+    },
+    "kuka_platform": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["KR C2", "KR C4", "KR C5", "KR C5 micro", "iiQKA", "Sunrise"] }
+    },
+    "controller": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "KSS / Sunrise versions, e.g. KSS 8.3, KSS 8.6, Sunrise 1.17"
+    },
+    "language": { "type": "string", "enum": ["KRL", "JAVA", "Python", "XML", "Mixed", "N/A"] },
+    "source": {
+      "type": "object",
+      "required": ["type", "title", "tier"],
+      "properties": {
+        "type": { "type": "string", "enum": ["vendor_manual", "application_note", "training", "error_code_ref", "white_paper", "third_party_integrator", "community", "standards_body", "github_repo", "generated"] },
+        "title": { "type": "string" },
+        "tier": { "type": "string", "enum": ["T1", "T2", "T3", "T4", "generated"] },
+        "pages": {
+          "oneOf": [
+            { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+            { "type": "null" }
+          ]
+        },
+        "section": { "type": ["string", "null"] },
+        "access_date": { "type": "string", "format": "date" },
+        "url": { "type": ["string", "null"], "format": "uri" }
+      }
+    },
+    "license": { "type": "string", "enum": ["reference-only", "open", "mit", "apache-2.0", "bsd-3-clause", "cc-by-4.0", "public-domain", "proprietary-internal"] },
+    "revision_date": { "type": "string", "format": "date" },
+    "related": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced", "expert"] },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "superseded_by": { "type": ["string", "null"] },
+    "source_urls": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "access_date"],
+        "properties": {
+          "url": { "type": "string", "format": "uri" },
+          "access_date": { "type": "string", "format": "date" },
+          "tier": { "type": "string", "enum": ["T1", "T2", "T3", "T4"] },
+          "note": { "type": "string" }
+        }
+      }
+    }
+  }
+}

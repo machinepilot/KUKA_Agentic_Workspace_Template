@@ -1,0 +1,11 @@
+{
+  "case_id": "smoke_task_state",
+  "agent": "orchestrator",
+  "description": "Smoke: minimal task_state.json validates against task_state.schema.json.",
+  "input": {
+    "prompt": "Initialize task_state for a new press-brake tending task."
+  },
+  "expected_schema": "../cowork/schemas/task_state.schema.json",
+  "golden_path": "golden/smoke_task_state.json",
+  "notes": "This case runs in schema-only mode and confirms the schema + golden stay in sync."
+}

@@ -1,0 +1,31 @@
+---
+description: KUKA agentic workspace master context — always apply
+alwaysApply: true
+---
+
+# KUKA Agentic Workspace
+
+This workspace develops KUKA industrial robot programs (KR C4 / KR C5, KSS 8.x, KRL) using a multi-agent architecture documented in `AGENTS.md`.
+
+## On Every Turn
+
+1. **Read `AGENTS.md` first** if you have not this session — it is the contract shared by Cursor and Cowork.
+2. **Read the relevant agent role** if you are acting as one: `.cursor/agents/<role>.md`.
+3. **Use MCP tools** (`kuka_knowledge`, `program_repository`, `safety_lint`) before `Grep`/`Read` for knowledge retrieval — they are indexed and citation-aware.
+4. **Cite** every KRL syntax or KUKA-behavior claim with a normalized dataset entry (`kuka_dataset/normalized/...`) or a research finding with a T1/T2 source.
+
+## Authority Order
+
+1. `kuka_dataset/normalized/` — syntax and best-practice truth.
+2. ISO 10218-1/-2, ISO/TS 15066 — safety normative reference.
+3. Research findings in `research/findings/` with trusted-source tier metadata.
+4. `customer_programs/` — application context only, NOT authoritative.
+
+Never copy patterns from customer programs without validating against the dataset.
+
+## Do Not
+
+- Invent KRL syntax. When uncertain, flag the gap.
+- Extract vendor PDF content verbatim into normalized or generated files.
+- Bypass JSON-schema validation on agent handoffs.
+- Edit `.cursor/rules/*.mdc` mid-workflow — fix rules deliberately.

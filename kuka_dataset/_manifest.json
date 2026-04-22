@@ -1,0 +1,17 @@
+{
+  "$schema": "./_manifest.schema.json",
+  "version": 1,
+  "generated_at": null,
+  "entries": [
+    {
+      "id": "EG_PTP_Hello",
+      "path": "examples/EG_PTP_Hello.md",
+      "topic": "motion",
+      "tier": "generated",
+      "kuka_platform": ["KR C4", "KR C5"],
+      "kss_version": ["KSS 8.3", "KSS 8.6"],
+      "revision_date": "2026-04-21",
+      "tags": ["motion", "ptp", "example", "beginner"]
+    }
+  ]
+}

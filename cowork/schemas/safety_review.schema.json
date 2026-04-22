@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/safety_review.schema.json",
+  "title": "SafetyReview",
+  "description": "Phase-A (constraints) or Phase-B (draft review) safety output from the Safety agent.",
+  "type": "object",
+  "required": ["task_id", "phase", "reviewer", "date", "verdict", "normative_refs"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "task_id": { "type": "string" },
+    "phase": { "type": "string", "enum": ["A", "B"] },
+    "reviewer": { "type": "string", "const": "safety" },
+    "date": { "type": "string", "format": "date" },
+    "application": { "type": "string" },
+    "collaborative": { "type": "boolean" },
+    "normative_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "constraints": {
+      "type": "object",
+      "description": "Primary output of Phase A; echoed in Phase B.",
+      "properties": {
+        "max_velocity_mm_s": { "type": ["number", "null"] },
+        "max_velocity_collab_mm_s": { "type": ["number", "null"] },
+        "required_interrupts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "trigger"],
+            "properties": {
+              "name": { "type": "string" },
+              "trigger": { "type": "string" },
+              "priority": { "type": ["integer", "null"] },
+              "handler": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "required_zones": { "type": "array", "items": { "type": "string" } },
+        "mastering_verify_required": { "type": "boolean" },
+        "payload_verify_required": { "type": "boolean" },
+        "tool_data_verify_required": { "type": "boolean" }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "description": "Populated in Phase B only.",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "description"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1 },
+          "severity": { "type": "string", "enum": ["CRITICAL", "WARNING", "INFO"] },
+          "file": { "type": ["string", "null"] },
+          "line": { "type": ["integer", "null"] },
+          "description": { "type": "string" },
+          "rule": { "type": ["string", "null"] },
+          "fix": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "hazard_analysis": {
+      "type": "object",
+      "description": "ISO/TS 15066 body-force analysis (collaborative apps only).",
+      "properties": {
+        "method": { "type": "string" },
+        "assumptions": { "type": "array", "items": { "type": "string" } },
+        "regions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["region", "limit", "computed", "pass"],
+            "properties": {
+              "region": { "type": "string" },
+              "limit_force_N": { "type": ["number", "null"] },
+              "limit_pressure_kPa": { "type": ["number", "null"] },
+              "computed_force_N": { "type": ["number", "null"] },
+              "computed_pressure_kPa": { "type": ["number", "null"] },
+              "pass": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "verdict": { "type": "string", "enum": ["pass", "pass-with-notes", "conditional-pass", "fail"] },
+    "rationale": { "type": "string" },
+    "required_actions": { "type": "array", "items": { "type": "string" } }
+  }
+}

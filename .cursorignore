@@ -1,0 +1,22 @@
+﻿# Keep Cursor indexing focused; exclude large/binary/cache content.
+
+# Raw, un-normalized source material - indexed knowledge lives under kuka_dataset/normalized/
+kuka_dataset/raw_sources/
+
+# Local caches
+.cache/
+.venv/
+venv/
+__pycache__/
+
+# Eval runtime output
+evals/results/
+evals/runs/
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+
+# Secrets and local MCP overrides
+.env
+mcp.local.json

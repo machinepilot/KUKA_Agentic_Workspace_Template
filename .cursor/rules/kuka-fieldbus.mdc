@@ -1,0 +1,65 @@
+---
+description: KUKA fieldbus integration — Profinet, EtherNet/IP, EtherCAT, PLC-master patterns
+globs: "**/*fieldbus*,**/*profinet*,**/*ethernet_ip*,**/*ethercat*,**/*.dat,**/INTEGRATION_*.md"
+alwaysApply: false
+---
+
+# KUKA Fieldbus
+
+When working on I/O, fieldbus mapping, or PLC-robot integration:
+
+## Supported Fieldbuses
+
+| Bus | Typical Role | KUKA Option |
+|-----|--------------|-------------|
+| **Profinet** | PLC ↔ KR C4/C5 in European / Siemens-centric plants | KUKA.Profinet M/S |
+| **EtherNet/IP** | PLC ↔ KR C4/C5 in North American / Rockwell plants | KUKA.EthernetIP M/S |
+| **EtherCAT** | High-deterministic external axes and drives | Native to KR C4/C5 KSS |
+| **DeviceNet** | Legacy | KUKA.DeviceNet |
+| **Profibus** | Legacy European | KUKA.Profibus |
+
+## Architectural Patterns
+
+### PLC-Master / Robot-Slave (most common for work-cell integration)
+
+- PLC owns cell orchestration; robot receives program-number / start signals and reports state.
+- Use **KUKA.PLC mxAutomation** when the PLC needs to command motion (palletizing, multi-path) via function blocks — robot runs a dedicated mxAutomation application and exposes motion FBs over the fieldbus.
+- For pure trigger/ack (program select + start), plain Profinet/EtherNet-IP I/O is sufficient.
+
+### Robot-Master / PLC-Slave
+
+- Less common; used when the robot sequences the cell.
+- Robot reads sensors and commands auxiliary devices via fieldbus outputs.
+
+### External Control (real-time)
+
+- **RSI (RobotSensorInterface)** — real-time path correction from sensors (12 ms cycle). Used for seam tracking, force control, visual servoing. Requires RSI option.
+- **EKI XML** — soft-real-time XML over TCP for messaging. Used for loose-coupled data exchange with non-PLC systems.
+
+## I/O Configuration
+
+- I/O is configured in **WorkVisual**, not in program code. Program code references **aliases** declared in `$config.dat` via `SIGNAL name $IN[n] TO $IN[m]` or `SIGNAL name $OUT[k]`.
+- Never hardcode `$IN[17]`; always alias: `SIGNAL part_present $IN[17]`.
+- Input debounce and output pulse logic in dedicated subprograms, not scattered.
+
+## Handshake Patterns
+
+Prefer explicit handshakes over blind waits. Template pattern:
+
+```krl
+; Request pattern: set request, wait for ack, clear request, wait for ack clear
+$OUT[req_bit] = TRUE
+WAIT FOR $IN[ack_bit] == TRUE
+$OUT[req_bit] = FALSE
+WAIT FOR $IN[ack_bit] == FALSE
+```
+
+Every `WAIT FOR` must have a timeout via `INTERRUPT` or `WAIT SEC <t>` fallback — never unbounded.
+
+## References
+
+- `kuka_knowledge.list_by_tag("protocols")` or `kuka_knowledge.list_by_tag("fieldbus")`.
+- `kuka_dataset/normalized/protocols/KUKA_Profinet.md` (once populated).
+- `kuka_dataset/normalized/protocols/KUKA_mxAutomation.md` (once populated).
+- `kuka_dataset/normalized/protocols/KUKA_RSI.md` (once populated).
+- `kuka_dataset/normalized/protocols/KUKA_EKI_XML.md` (once populated).

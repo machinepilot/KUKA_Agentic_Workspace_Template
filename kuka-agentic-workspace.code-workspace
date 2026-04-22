@@ -1,0 +1,51 @@
+{
+  "folders": [
+    {
+      "name": "KUKA Agentic Workspace",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.eol": "\r\n",
+    "[markdown]": {
+      "files.eol": "\n"
+    },
+    "[python]": {
+      "files.eol": "\n"
+    },
+    "[json]": {
+      "files.eol": "\n"
+    },
+    "[yaml]": {
+      "files.eol": "\n"
+    },
+    "files.associations": {
+      "*.src": "krl",
+      "*.dat": "krl",
+      "*.sub": "krl",
+      "*.mdc": "markdown",
+      "AGENTS.md": "markdown",
+      "CLAUDE.md": "markdown"
+    },
+    "search.exclude": {
+      "**/.cache": true,
+      "**/__pycache__": true,
+      "**/kuka_dataset/raw_sources": true,
+      "**/evals/results": true,
+      "**/evals/runs": true
+    },
+    "files.watcherExclude": {
+      "**/.cache/**": true,
+      "**/__pycache__/**": true,
+      "**/kuka_dataset/raw_sources/**": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "ms-python.python",
+      "redhat.vscode-yaml",
+      "tamasfe.even-better-toml",
+      "davidanson.vscode-markdownlint"
+    ]
+  }
+}

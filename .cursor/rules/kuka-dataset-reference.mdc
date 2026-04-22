@@ -1,0 +1,47 @@
+---
+description: How to reference the normalized KUKA dataset for syntax and best practices
+globs: "**/*.src,**/*.dat,**/*.sub,**/PROGRAM_SPEC_*.md,**/HANDOFF_*.md,**/REVIEW_*.md"
+alwaysApply: false
+---
+
+# KUKA Dataset Reference
+
+When answering KRL questions or editing KUKA programs:
+
+## Retrieval Order
+
+1. **`kuka_knowledge.search(<topic>)`** — semantic search over normalized dataset. First resort.
+2. **`kuka_knowledge.get(<id>)`** — fetch a specific entry when you know the id.
+3. **`kuka_knowledge.list_by_tag(<tag>)`** — enumerate entries by topic/platform/controller.
+4. **`@kuka_dataset/normalized/<path>`** — direct citation in a document.
+
+## Source Tiers (from research/RESEARCH_PROMPT_KUKA_KRL.md)
+
+- **T1** — KUKA Xpert, KUKA Download Center, KUKA Academy courseware.
+- **T2** — Peer-reviewed robotics literature; ISO 10218, ISO/TS 15066, ANSI/RIA R15.06.
+- **T3** — Vetted community (robot-forum.com answered 3+, Stack Overflow `kuka-krl`, named-author integrator blogs).
+- **T4** — GitHub repos ≥50★, non-archived, recent.
+
+Normalized entries include a `source:` frontmatter block with tier. Prefer T1/T2 citations when providing authoritative guidance.
+
+## Citation Format
+
+When you cite a dataset entry in a document:
+
+```markdown
+Per [KUKA_REF_PTP_Motion](kuka_dataset/normalized/reference/KUKA_REF_PTP_Motion.md):
+> PTP is asynchronous across axes and must be preceded by `$VEL_AXIS[]` set...
+```
+
+In code comments:
+
+```krl
+; See kuka_dataset/normalized/reference/KUKA_REF_Interrupt.md §3
+INTERRUPT DECL 3 WHEN $IN[17]==FALSE DO estop_handler()
+```
+
+## Do NOT
+
+- Use customer program code as syntax source (`customer_programs/` is context, not canon).
+- Cite a normalized entry without reading it. Use `kuka_knowledge.get` if you do not already have it in context.
+- Quote vendor PDFs verbatim. Normalized entries summarize and cite pages; that is sufficient.

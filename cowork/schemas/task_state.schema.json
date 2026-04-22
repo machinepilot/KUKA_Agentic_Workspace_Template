@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/task_state.schema.json",
+  "title": "TaskState",
+  "description": "Shared state object for an in-progress task. Orchestrator owns writes; other agents append under their key.",
+  "type": "object",
+  "required": ["task_id", "created_at", "updated_at", "status", "customer_id", "system", "task_type"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "task_id": { "type": "string", "description": "UUID identifying this task" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "customer_id": { "type": "string" },
+    "system": { "type": "string" },
+    "task_type": {
+      "type": "string",
+      "enum": ["new_program", "modify_program", "refactor", "add_feature", "fix_bug", "audit", "safety_audit", "knowledge_ingestion", "customer_onboarding"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["intake", "architect", "integration", "safety", "motion", "qa", "docs", "blocked", "done"]
+    },
+    "intake": { "type": ["object", "null"] },
+    "architect": { "type": ["object", "null"] },
+    "integration": { "type": ["object", "null"] },
+    "safety": { "type": ["object", "null"] },
+    "motion": { "type": ["object", "null"] },
+    "qa": { "type": ["object", "null"] },
+    "documentation": { "type": ["object", "null"] },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "between", "summary"],
+        "properties": {
+          "id": { "type": "string" },
+          "between": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "summary": { "type": "string" },
+          "positions": { "type": "array", "items": { "type": "object" } },
+          "adjudication": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "retries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["agent", "at", "reason"],
+        "properties": {
+          "agent": { "type": "string" },
+          "at": { "type": "string", "format": "date-time" },
+          "reason": { "type": "string" },
+          "attempt": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "handoffs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from_agent", "to_agent", "at", "document"],
+        "properties": {
+          "from_agent": { "type": "string" },
+          "to_agent": { "type": "string" },
+          "at": { "type": "string", "format": "date-time" },
+          "document": { "type": "string" }
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "kind"],
+        "properties": {
+          "path": { "type": "string" },
+          "kind": { "type": "string", "enum": ["spec", "review", "handoff", "src", "dat", "safety_review", "operator_doc", "other"] },
+          "agent": { "type": "string" },
+          "at": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

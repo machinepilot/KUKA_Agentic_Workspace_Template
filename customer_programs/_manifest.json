@@ -1,0 +1,23 @@
+{
+  "$schema": "./_manifest.schema.json",
+  "version": 1,
+  "customers": [
+    {
+      "id": "_example_customer",
+      "name": "Example Customer (placeholder)",
+      "active": false,
+      "industry": "example",
+      "systems": [
+        {
+          "id": "example_cell",
+          "application": "pick_place",
+          "robot_model": "KR 16 R2010",
+          "controller": "KR C5",
+          "kss_version": "8.6",
+          "fieldbus": "Profinet",
+          "collaborative": false
+        }
+      ]
+    }
+  ]
+}

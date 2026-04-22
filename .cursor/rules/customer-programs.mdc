@@ -1,0 +1,44 @@
+---
+description: Customer program repository — production backups, NOT authoritative
+globs: "customer_programs/**/*"
+alwaysApply: false
+---
+
+# Customer Programs
+
+When reading, editing, or citing files under `customer_programs/`:
+
+## Core Rule
+
+**Customer programs are production backups with known errors, multiple programmer styles, and different philosophies.** They are *context*, not *canon*.
+
+- Read them to understand what a customer currently does.
+- Do NOT treat customer code as a syntax or pattern reference.
+- Do NOT copy from one customer program to another without explicit dataset-backed validation.
+
+## Retrieval via MCP
+
+Use `program_repository` MCP server:
+
+- `program_repository.list_customers()` — manifest overview.
+- `program_repository.get_program(customer_id, name)` — fetch one file.
+- `program_repository.search(regex, scope)` — find usages.
+- `program_repository.diff(a, b)` — structural diff (useful in review).
+
+## When Fixing Customer Code
+
+1. Identify the violation via `safety_lint.lint_src` and dataset comparison.
+2. Propose the fix using the canonical pattern from `kuka_dataset/normalized/`.
+3. Preserve application-specific logic (that is customer-specific, not a convention violation).
+4. Generate a `REVIEW_*.md` finding and a `HANDOFF_*.md` for the change.
+
+## Repository Context
+
+- Each customer has a directory with a `_manifest.json` and `README.md`.
+- `customer_programs/PROGRAM_REPOSITORY_INDEX.md` is the top-level catalog.
+- Backups by date live in subdirectories (e.g. `YYYY-MM-DD_backup/`) — the most recent is usually authoritative for "what runs today."
+
+## Never
+
+- Use a customer program snippet as a "look, this is how KRL does X" example in documentation.
+- Copy a pattern that triggers a `safety_lint` warning, even if that customer uses it in production.

@@ -1,0 +1,56 @@
+---
+description: How to read and produce inter-agent handoff documents
+globs: "**/HANDOFF_*.md,**/PROGRAM_SPEC_*.md,**/REVIEW_*.md,**/SAFETY_REVIEW_*.md,**/INTEGRATION_SPEC_*.md,**/task_state.json"
+alwaysApply: false
+---
+
+# Agent Handoff Protocol
+
+When consuming or producing inter-agent documents, follow the contract in `AGENTS.md` § Handoff Protocol.
+
+## Documents and Their Schemas
+
+| Document | Schema | Producer | Consumer |
+|----------|--------|----------|----------|
+| `PROGRAM_SPEC_*.md` (+ JSON block) | `cowork/schemas/program_spec.schema.json` | Architect | Motion, Integration, Safety, QA |
+| `INTEGRATION_SPEC_*.md` (+ JSON block) | `cowork/schemas/program_spec.schema.json` § integration | Integration | Architect, Motion |
+| `SAFETY_REVIEW_*.md` (+ JSON block) | `cowork/schemas/safety_review.schema.json` | Safety | QA, Documentation |
+| `REVIEW_*.md` (+ JSON block) | `cowork/schemas/review.schema.json` | QA | Documentation, Cursor |
+| `HANDOFF_*.md` (+ JSON block) | `cowork/schemas/handoff.schema.json` | Documentation, Cowork (Orchestrator) | Cursor / next agent |
+| `task_state.json` | `cowork/schemas/task_state.schema.json` | Orchestrator (writes); all agents (append their key) | All |
+| Dataset entry | `cowork/schemas/dataset_entry.schema.json` | Ingestion skill + QA | `kuka_knowledge` MCP server |
+
+## Embedding JSON in Markdown
+
+Every handoff doc includes a fenced JSON block at the top for machine parsing:
+
+````markdown
+# Program Spec: <name>
+
+```json program_spec
+{
+  "$schema": "cowork/schemas/program_spec.schema.json",
+  "id": "...",
+  ...
+}
+```
+
+<human-readable sections follow>
+````
+
+Both the JSON block and the markdown prose must agree; the JSON is parsed by Orchestrator, the prose is read by humans and next agents.
+
+## Before Accepting a Handoff
+
+1. Validate JSON block against the named schema.
+2. Confirm required inputs present.
+3. Confirm `task_state.json` agrees (same `task_id`, matching producer key).
+4. If any check fails, return to Orchestrator with the specific failure — do not proceed.
+
+## Before Producing a Handoff
+
+1. Fill the template from `cowork/templates/`.
+2. Author the JSON block.
+3. Self-validate against the schema.
+4. Write the doc + append to `task_state.json` under your agent key.
+5. Signal the Orchestrator.

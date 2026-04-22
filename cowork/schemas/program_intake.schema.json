@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/program_intake.schema.json",
+  "title": "ProgramIntake",
+  "description": "Structured intake produced by the Intake agent from a free-text user request.",
+  "type": "object",
+  "required": ["task_id", "customer_id", "system", "task_type", "application", "robot"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "task_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "system": { "type": "string" },
+    "task_type": {
+      "type": "string",
+      "enum": ["new_program", "modify_program", "refactor", "add_feature", "fix_bug", "audit"]
+    },
+    "application": {
+      "type": "string",
+      "description": "Free-form but canonical where possible: pick_place, machine_tending, palletizing, welding, sealing, deburring, dispensing, press_brake_tending, ..."
+    },
+    "robot": {
+      "type": "object",
+      "required": ["model", "controller"],
+      "properties": {
+        "model": { "type": "string" },
+        "controller": { "type": "string", "enum": ["KR C4", "KR C5", "KR C5 micro", "iiQKA", "KR C2", "other"] },
+        "kss_version": { "type": ["string", "null"] }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "name"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 0, "maximum": 16 },
+          "name": { "type": "string" },
+          "payload_kg": { "type": ["number", "null"], "minimum": 0 },
+          "inertia_kgm2": { "type": ["number", "null"] }
+        }
+      }
+    },
+    "bases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "name"],
+        "properties": {
+          "index": { "type": "integer", "minimum": 0, "maximum": 32 },
+          "name": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "parts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sku"],
+        "properties": {
+          "sku": { "type": "string" },
+          "weight_kg": { "type": ["number", "null"] },
+          "dims_mm": { "type": ["array", "null"], "items": { "type": "number" } },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "io_integration": {
+      "type": "object",
+      "properties": {
+        "fieldbus": { "type": ["string", "null"], "enum": [null, "Profinet", "EtherNet/IP", "EtherCAT", "DeviceNet", "Profibus", "none", "unknown"] },
+        "plc_master": { "type": ["boolean", "null"] },
+        "signal_estimate": { "type": ["integer", "null"] }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "collaborative": { "type": "boolean" },
+        "safeop_zones": { "type": "array", "items": { "type": "string" } },
+        "light_curtains": { "type": "boolean" },
+        "interlocks": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "cycle_time_s": { "type": ["number", "null"], "minimum": 0 },
+        "workvisual_available": { "type": ["boolean", "null"] },
+        "template_program": { "type": ["string", "null"] }
+      }
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } }
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/handoff.schema.json",
+  "title": "Handoff",
+  "description": "A handoff document from one agent or Cowork to another agent or Cursor for execution.",
+  "type": "object",
+  "required": ["task_id", "from_agent", "to_agent", "target_files", "instructions", "acceptance_criteria"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "task_id": { "type": "string" },
+    "from_agent": { "type": "string" },
+    "to_agent": { "type": "string", "description": "intake | architect | integration | safety | motion-synthesis | qa | documentation | cursor | user" },
+    "date": { "type": "string", "format": "date" },
+    "priority": { "type": "string", "enum": ["critical", "high", "medium", "low"] },
+    "source_documents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "kind"],
+        "properties": {
+          "path": { "type": "string" },
+          "kind": { "type": "string", "enum": ["program_spec", "review", "safety_review", "integration_spec", "program_intake", "other"] }
+        }
+      }
+    },
+    "target_files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path", "action"],
+        "properties": {
+          "path": { "type": "string" },
+          "action": { "type": "string", "enum": ["create", "edit", "refactor", "review", "delete"] },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "applicable_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["rule"],
+        "properties": {
+          "rule": { "type": "string" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "dataset_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": { "type": "string" },
+          "used_for": { "type": "string" }
+        }
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["step", "file", "description"],
+        "properties": {
+          "step": { "type": "integer", "minimum": 1 },
+          "file": { "type": "string" },
+          "description": { "type": "string" },
+          "pattern": { "type": ["string", "null"] },
+          "before": { "type": ["string", "null"] },
+          "after": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "notes": { "type": "string" }
+  }
+}

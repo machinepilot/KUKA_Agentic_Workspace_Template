@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/program_spec.schema.json",
+  "title": "ProgramSpec",
+  "description": "Architectural specification produced by the Architect agent. Consumed by Motion Synthesis.",
+  "type": "object",
+  "required": ["task_id", "customer_id", "system", "application", "robot", "modules"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "task_id": { "type": "string" },
+    "customer_id": { "type": "string" },
+    "system": { "type": "string" },
+    "application": { "type": "string" },
+    "robot": {
+      "type": "object",
+      "required": ["model", "controller"],
+      "properties": {
+        "model": { "type": "string" },
+        "controller": { "type": "string" },
+        "kss_version": { "type": ["string", "null"] }
+      }
+    },
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "name"],
+        "properties": {
+          "index": { "type": "integer" },
+          "name": { "type": "string" },
+          "payload_kg": { "type": ["number", "null"] }
+        }
+      }
+    },
+    "bases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["index", "name"],
+        "properties": {
+          "index": { "type": "integer" },
+          "name": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "modules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "kind", "file", "purpose"],
+        "properties": {
+          "name": { "type": "string" },
+          "kind": { "type": "string", "enum": ["main", "subprogram", "data", "interrupt_handler", "recovery"] },
+          "file": { "type": "string" },
+          "purpose": { "type": "string" }
+        }
+      }
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type", "scope", "purpose"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": { "type": "string", "description": "INT | BOOL | REAL | CHAR | ENUM | FRAME | POS | E6POS | E6AXIS | AXIS | ..." },
+          "scope": { "type": "string", "enum": ["GLOBAL", "local", "DECL", "DEFDAT", "GLOBAL DEFDAT"] },
+          "purpose": { "type": "string" },
+          "init": { "type": ["string", "number", "boolean", "null"] }
+        }
+      }
+    },
+    "motion_blocks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "from", "to", "motion_type"],
+        "properties": {
+          "id": { "type": "string" },
+          "from": { "type": "string" },
+          "to": { "type": "string" },
+          "motion_type": { "type": "string", "enum": ["PTP", "LIN", "CIRC", "SPLINE", "SLIN", "SCIRC", "SPTP"] },
+          "velocity": { "type": ["string", "null"] },
+          "acceleration": { "type": ["string", "null"] },
+          "termination": { "type": ["string", "null"], "description": "C_PTP | C_FINE | C_DIS | C_VEL | C_ORI" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "integration": {
+      "type": "object",
+      "required": ["fieldbus", "architecture"],
+      "properties": {
+        "fieldbus": { "type": "string" },
+        "architecture": { "type": "string" },
+        "cycle_time_ms": { "type": ["number", "null"] },
+        "mx_automation": { "type": "boolean" },
+        "rsi": { "type": "object" },
+        "eki": { "type": "object" },
+        "signals": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["alias", "direction", "kuka_address"],
+            "properties": {
+              "alias": { "type": "string" },
+              "direction": { "type": "string", "enum": ["in", "out", "inout"] },
+              "kuka_address": { "type": "string" },
+              "fieldbus_device": { "type": "string" },
+              "width_bits": { "type": "integer", "minimum": 1 },
+              "safety_rated": { "type": "boolean" },
+              "category_pl": { "type": ["string", "null"] },
+              "debounce_ms": { "type": ["number", "null"] },
+              "timeout_ms": { "type": ["number", "null"] },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "handshakes": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "properties": {
+        "required_interrupts": { "type": "array", "items": { "type": "object" } },
+        "zones": { "type": "array", "items": { "type": "string" } },
+        "max_velocity_mm_s": { "type": ["number", "null"] },
+        "collaborative": { "type": "boolean" },
+        "mastering_verify_required": { "type": "boolean" }
+      }
+    },
+    "error_recovery": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fault", "detection", "recovery_subprogram"],
+        "properties": {
+          "fault": { "type": "string" },
+          "detection": { "type": "string" },
+          "recovery_subprogram": { "type": "string" },
+          "action": { "type": "string" }
+        }
+      }
+    },
+    "dataset_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "used_for"],
+        "properties": {
+          "id": { "type": "string" },
+          "used_for": { "type": "string" }
+        }
+      }
+    }
+  }
+}

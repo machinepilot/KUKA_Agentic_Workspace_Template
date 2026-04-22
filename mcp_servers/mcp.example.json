@@ -1,0 +1,30 @@
+{
+  "_comment": "Copy this into Cursor Settings -> MCP -> Edit Configuration, or into Claude Desktop's config. Replace ${workspaceFolder} with an absolute path if the host does not interpolate. Override with a gitignored mcp.local.json if you want per-machine settings.",
+  "mcpServers": {
+    "kuka-knowledge": {
+      "command": "python",
+      "args": ["-m", "kuka_knowledge.server"],
+      "cwd": "${workspaceFolder}/mcp_servers/kuka_knowledge",
+      "env": {
+        "KUKA_DATASET_PATH": "${workspaceFolder}/kuka_dataset",
+        "EMBEDDING_BACKEND": "ollama",
+        "OLLAMA_BASE_URL": "http://localhost:11434",
+        "EMBEDDING_MODEL": "nomic-embed-text"
+      }
+    },
+    "program-repository": {
+      "command": "python",
+      "args": ["-m", "program_repository.server"],
+      "cwd": "${workspaceFolder}/mcp_servers/program_repository",
+      "env": {
+        "CUSTOMER_PROGRAMS_PATH": "${workspaceFolder}/customer_programs"
+      }
+    },
+    "safety-lint": {
+      "command": "python",
+      "args": ["-m", "safety_lint.server"],
+      "cwd": "${workspaceFolder}/mcp_servers/safety_lint",
+      "env": {}
+    }
+  }
+}

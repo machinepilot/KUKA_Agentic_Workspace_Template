@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/customer_manifest.schema.json",
+  "title": "CustomerManifest",
+  "description": "Top-level catalog of customers and their systems.",
+  "type": "object",
+  "required": ["version", "customers"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "version": { "type": "integer", "minimum": 1 },
+    "customers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "systems"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "active": { "type": "boolean" },
+          "industry": { "type": "string" },
+          "contact": { "type": ["string", "null"] },
+          "systems": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "application", "robot_model", "controller"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string" },
+                "application": { "type": "string" },
+                "robot_model": { "type": "string" },
+                "controller": { "type": "string" },
+                "kss_version": { "type": ["string", "null"] },
+                "fieldbus": { "type": ["string", "null"] },
+                "collaborative": { "type": "boolean" },
+                "notes": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

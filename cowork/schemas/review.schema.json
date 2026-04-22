@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://twa.example/schemas/review.schema.json",
+  "title": "QAReview",
+  "description": "Findings report produced by the QA agent.",
+  "type": "object",
+  "required": ["task_id", "reviewer", "date", "files_reviewed", "findings", "verdict"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "task_id": { "type": "string" },
+    "reviewer": { "type": "string", "const": "qa" },
+    "date": { "type": "string", "format": "date" },
+    "files_reviewed": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["path"],
+        "properties": {
+          "path": { "type": "string" },
+          "role": { "type": "string" },
+          "lines": { "type": "integer" },
+          "last_modified": { "type": "string" }
+        }
+      }
+    },
+    "convention_compliance": {
+      "type": "object",
+      "properties": {
+        "ini_block": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "interrupt_decl_before_motion": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "tool_base_set": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "vel_acc_explicit": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "spline_bas_init": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "no_magic_numbers": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "subprograms_own_files": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "error_recovery_modular": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "decl_comments": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] },
+        "io_aliases_only": { "type": "string", "enum": ["PASS", "FAIL", "PARTIAL", "N/A"] }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "severity", "file", "description"],
+        "properties": {
+          "id": { "type": "integer", "minimum": 1 },
+          "severity": { "type": "string", "enum": ["CRITICAL", "WARNING", "INFO"] },
+          "rule": { "type": ["string", "null"] },
+          "file": { "type": "string" },
+          "line": { "type": ["integer", "null"] },
+          "column": { "type": ["integer", "null"] },
+          "description": { "type": "string" },
+          "dataset_ref": { "type": ["string", "null"] },
+          "suggested_fix": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "pattern_comparison": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["section", "closest_dataset_example"],
+        "properties": {
+          "section": { "type": "string" },
+          "closest_dataset_example": { "type": "string" },
+          "deviations": { "type": "string" }
+        }
+      }
+    },
+    "spec_conformance": {
+      "type": "object",
+      "properties": {
+        "all_modules_present": { "type": "boolean" },
+        "all_variables_declared": { "type": "boolean" },
+        "all_motion_blocks_present": { "type": "boolean" },
+        "all_aliases_used": { "type": "boolean" },
+        "all_interrupts_declared": { "type": "boolean" },
+        "all_fault_handlers_present": { "type": "boolean" }
+      }
+    },
+    "verdict": { "type": "string", "enum": ["pass", "conditional", "fail"] },
+    "rationale": { "type": "string" },
+    "dataset_refs": { "type": "array", "items": { "type": "string" } }
+  }
+}

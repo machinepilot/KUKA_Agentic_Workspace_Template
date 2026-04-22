@@ -1,0 +1,51 @@
+---
+description: KUKA safety — ISO 10218, SafeOperation, SafeRangeMonitoring, collaborative ops
+globs: "**/*.src,**/SAFETY_*.md,**/*safety*.md,**/safety/**/*"
+alwaysApply: false
+---
+
+# KUKA Safety
+
+When editing programs that command motion, touch safety-rated I/O, or configure SafeOperation / SafeRangeMonitoring / collaborative behavior:
+
+## Normative References
+
+- **ISO 10218-1:2011** — Safety requirements for industrial robots (robot construction).
+- **ISO 10218-2:2011** — Safety requirements for industrial robots (integration).
+- **ISO/TS 15066:2016** — Collaborative robots (power-and-force-limited operations).
+- **ANSI/RIA R15.06-2012** — US harmonization of ISO 10218.
+- KUKA SafeOperation / SafeRangeMonitoring manuals (see `kuka_dataset/raw_sources/` once populated).
+
+Consult via `kuka_knowledge.list_by_tag("safety")`.
+
+## Baseline Requirements
+
+- **E-stop reachable in program logic.** `INTERRUPT DECL` for E-stop declared before first motion; handler brings the robot to category-1 stop and latches an error.
+- **Guard / light curtain interlock.** Motion does not start unless guard is closed and latched.
+- **Safe speeds.** When humans are in the cell (teach, maintenance, collaborative), `$VEL.CP` is limited per SafeOperation configuration. Do not override `$OV_PRO` programmatically.
+- **Zones.** SafeOperation zones configured in WorkVisual, not in program code. Code references the zone, never redefines it.
+- **Tool and payload accuracy.** `$TOOL`, `$LOAD_DATA[]` must be correct; incorrect load data defeats dynamic monitoring.
+- **Mastering.** Any program that commands motion after a controller cold-start verifies mastering is current before moving.
+
+## Collaborative (ISO/TS 15066)
+
+If the application is power-and-force-limited (KUKA iisy, iiwa, or KR C4/C5 with SafeOperation collab configuration):
+
+- TCP forces and pressures must comply with ISO/TS 15066 Annex A body-region limits.
+- Transitional speed limits apply when approaching a human.
+- A biomechanical hazard analysis is required in the `SAFETY_REVIEW.md` document.
+
+## Review Gate
+
+Programs touching safety DO NOT ship without:
+
+1. A `SAFETY_REVIEW_*.md` conforming to `cowork/schemas/safety_review.schema.json`.
+2. `safety_lint.lint_src` returning no CRITICAL findings.
+3. Explicit Safety-agent sign-off recorded in `task_state.json`.
+
+## Never
+
+- Bypass a safety interrupt for convenience.
+- Raise override in a program handler.
+- Move without verifying mastering and load data.
+- Place SafeOperation zone definitions in program code.
